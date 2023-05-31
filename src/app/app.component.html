@@ -1,0 +1,46 @@
+<div class="main">
+
+  <div class="toolbar">
+    <mat-toolbar>
+      <h3>PPL - Solver</h3>
+    </mat-toolbar>
+  </div>
+
+  <div class="example-container">
+
+    <div class="hold-inputs">
+      <label for="var">Número de variáveis</label>
+      <input type="number" #varia value="" min="0" id="var" (change)="setVar(varia.value)">
+    </div>
+
+
+    <h4>Coeficientes da função objetivo</h4>
+    <div class="coefs">
+      <div class="hold-coef" >
+        <input type="number" *ngFor="let item of [].constructor(vari); let i = index" class="with-space" [id]="'fo-'+ i">
+      </div>
+    </div>
+
+    <div class="hold-inputs">
+      <label for="var">Número de restrições</label>
+      <input type="number" #resti value="" min='0' id="rest" (change)="setRest(resti.value)">
+    </div>
+
+    <h4>Coeficientes das restrições</h4>
+    <div class="coefs">
+      <div class="hold-coef" *ngFor="let item of [].constructor(rest); let i = index">
+        <div class="hold-coef" *ngFor="let item of [].constructor(vari); let j = index">
+          <input type="number" [id]="'rest-'+i+'-'+j">
+  
+        </div>
+        <input *ngIf="vari > 0" type="number" [id]="'value-'+i">
+      </div>
+    </div>
+
+    <div class="hold-button">
+      <button (click)="solve()">RESOLVER</button>
+    </div>
+
+  </div>
+
+</div>

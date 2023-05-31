@@ -1,0 +1,71 @@
+.toolbar {
+    background-color: #14FF37;
+    margin: 0;
+}
+
+h3 {
+    font-weight: bolder;
+}
+
+.example-container {
+    border: px solid red;
+    width: 80%;
+    margin: 2% auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hold-inputs {
+    border: px solid blue;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2%;
+}
+
+.coefs {
+    border: px solid blue;
+    justify-content: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1%;
+    flex-wrap: wrap;
+}
+
+.hold-coef {
+    border: px solid red;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1%;
+}
+
+.with-space{
+    margin-right: 1%;
+}
+
+.hold-button{
+    width: 20%;
+    margin-top: 5%;
+}
+
+button{
+    background-color: #14FF37;
+    border: 0;
+    padding: 2%;
+    font-weight: bolder;
+    font-size: 15pt;
+    color: #eee;
+    width: 70%;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #03EE26;
+    box-shadow: 0px 0px 2px 2px #aaa;
+}
