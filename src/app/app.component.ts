@@ -83,12 +83,16 @@ export class AppComponent {
 
   setResults() {
     for (let i = 0; i < this.rest; i++) {
-      this.table[i+2][this.table[i].length-1] =
+      this.table[i + 2][this.table[i].length - 1] =
         (<HTMLInputElement>document.getElementById("result-" + i)).value;
     }
   }
 
   solve() {
+    let selectedRow: number = 0;
+    let selectedColumn: number = 0;
+    let pivot: number = 0;
+
     this.init();
 
     this.setLabels();
@@ -100,6 +104,41 @@ export class AppComponent {
     this.createIdMatrix();
 
     this.setResults();
+
+    let rowToCheck = this.table[1].slice(1, this.vari + this.rest + 1);
+
+
+    // while objective contains negatives
+
+    let smallest = Number.MAX_VALUE;
+    for (let j = 1; j < this.vari + this.rest + 1; j++) {
+      if (Number.parseFloat(this.table[1][j]) < smallest) {
+        smallest = Number.parseFloat(this.table[1][j]);
+        selectedColumn = j;
+      }
+    }
+
+    let smallestDivision = Number.MAX_VALUE;
+    for (let i = 2; i < this.rest + 2; i++) {
+      let result = Number.parseFloat(this.table[i][this.table[i].length - 1]);
+      let division = result / Number.parseFloat(this.table[i][selectedColumn]);
+      if (division < smallestDivision) {
+        smallestDivision = division;
+        selectedRow = i;
+      }
+    }
+
+
+    pivot = Number.parseFloat(this.table[selectedRow][selectedColumn])
+    console.log(pivot);
+
+    /*
+    while (rowToCheck.filter(e => Number.parseInt(e) < 0).length > 0) {
+
+      rowToCheck = this.table[1].slice(1, this.vari + this.rest + 1);
+
+    }
+    */
   }
 
 }
