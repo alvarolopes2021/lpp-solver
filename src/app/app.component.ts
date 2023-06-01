@@ -57,9 +57,9 @@ export class AppComponent {
 
   setTableRest() {
     for (let i = 0; i < this.rest; i++) {
-      for (let j = 0; j < this.vari; j++){
-        let value =  (<HTMLInputElement>document.getElementById("rest-" + i + "-" + j)).value;
-        this.table[i+2][j+1] = value;
+      for (let j = 0; j < this.vari; j++) {
+        let value = (<HTMLInputElement>document.getElementById("rest-" + i + "-" + j)).value;
+        this.table[i + 2][j + 1] = value;
       }
     }
 
@@ -70,6 +70,24 @@ export class AppComponent {
     console.log(this.table)
   }
 
+  createIdMatrix() {
+    for (let i = 0; i < this.rest; i++) {
+      for (let j = 0; j < this.rest; j++) {
+        if (i == j)
+          this.table[i + 2][this.vari + 1 + j] = '1';
+        else
+          this.table[i + 2][this.vari + 1 + j] = '0';
+      }
+    }
+  }
+
+  setResults() {
+    for (let i = 0; i < this.rest; i++) {
+      this.table[i+2][this.table[i].length-1] =
+        (<HTMLInputElement>document.getElementById("result-" + i)).value;
+    }
+  }
+
   solve() {
     this.init();
 
@@ -78,6 +96,10 @@ export class AppComponent {
     this.setZ();
 
     this.setTableRest();
+
+    this.createIdMatrix();
+
+    this.setResults();
   }
 
 }
