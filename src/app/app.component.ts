@@ -46,8 +46,7 @@ export class AppComponent {
   setZ() {
     for (let i = 0; i < this.vari + this.rest + 1; i++) {
       if (i < this.vari)
-        this.table[1][i + 1] = (<HTMLInputElement>document.getElementById("fo-" + i)).value.includes("-") ? (<HTMLInputElement>document.getElementById("fo-" + i)).value :
-          "-" + (<HTMLInputElement>document.getElementById("fo-" + i)).value;
+        this.table[1][i + 1] = (-1 * Number.parseFloat((<HTMLInputElement>document.getElementById("fo-" + i)).value)).toString();
       else
         this.table[1][i + 1] = "0";
     }
