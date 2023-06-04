@@ -31,7 +31,6 @@ export class AppComponent {
     for (let i = 0; i < this.rest + 2; i++) {
       this.table[i] = new Array<string>(this.rest + this.vari + 2).fill("");
     }
-    console.log(this.table)
   }
 
   setLabels() {
@@ -42,17 +41,16 @@ export class AppComponent {
     for (let i = 1; i < (this.rest + this.vari + 1); i++) {
       this.table[0][i] = "x" + (i);
     }
-    console.log(this.table)
   }
 
   setZ() {
     for (let i = 0; i < this.vari + this.rest + 1; i++) {
       if (i < this.vari)
-        this.table[1][i + 1] = (<HTMLInputElement>document.getElementById("fo-" + i)).value;
+        this.table[1][i + 1] = (<HTMLInputElement>document.getElementById("fo-" + i)).value.includes("-") ? (<HTMLInputElement>document.getElementById("fo-" + i)).value :
+          "-" + (<HTMLInputElement>document.getElementById("fo-" + i)).value;
       else
         this.table[1][i + 1] = "0";
     }
-    console.log(this.table)
   }
 
   setTableRest() {
@@ -67,7 +65,6 @@ export class AppComponent {
       this.table[0][i] = "x" + (i);
     }
 
-    console.log(this.table)
   }
 
   createIdMatrix() {
@@ -105,40 +102,70 @@ export class AppComponent {
 
     this.setResults();
 
-    let rowToCheck = this.table[1].slice(1, this.vari + this.rest + 1);
 
+    //while (rowToCheck.filter(e => Number.parseInt(e) < 0).length > 0) {
+    for (let kk = 0; kk < 3; kk++) {
 
-    // while objective contains negatives
+      // while objective contains negatives
 
-    let smallest = Number.MAX_VALUE;
-    for (let j = 1; j < this.vari + this.rest + 1; j++) {
-      if (Number.parseFloat(this.table[1][j]) < smallest) {
-        smallest = Number.parseFloat(this.table[1][j]);
-        selectedColumn = j;
+      let smallest = Number.MAX_VALUE;
+      for (let j = 1; j < (this.vari + this.rest + 2); j++) {
+        if (Number.parseFloat(this.table[1][j]) < smallest) {
+          smallest = Number.parseFloat(this.table[1][j]);
+          selectedColumn = j;
+        }
       }
-    }
 
-    let smallestDivision = Number.MAX_VALUE;
-    for (let i = 2; i < this.rest + 2; i++) {
-      let result = Number.parseFloat(this.table[i][this.table[i].length - 1]);
-      let division = result / Number.parseFloat(this.table[i][selectedColumn]);
-      if (division < smallestDivision) {
-        smallestDivision = division;
-        selectedRow = i;
+      let smallestDivision = Number.MAX_VALUE;
+      for (let i = 2; i < this.rest + 2; i++) {
+        if(Number.parseFloat(this.table[i][selectedColumn]) <= 0){
+          continue;
+        }
+        let result = Number.parseFloat(this.table[i][this.table[i].length - 1]);
+        let division = result / Number.parseFloat(this.table[i][selectedColumn]);
+        if (division < smallestDivision) {
+          smallestDivision = division;
+          selectedRow = i;
+        }
       }
+
+      pivot = Number.parseFloat(this.table[selectedRow][selectedColumn])
+
+
+      // multiplica pelo inverso a linha do pivo
+      for (let j = 1; j < this.table[selectedRow].length; j++) {
+        this.table[selectedRow][j] =
+          (Number.parseFloat(this.table[selectedRow][j]) * (1 / pivot)).toString();
+      }
+
+      for (let i = 1; i < (this.rest + 2); i++) {
+
+        let hold = Number.parseFloat((-1 * Number.parseFloat(this.table[i][selectedColumn])).toString());
+
+        if (hold == Number.parseFloat("0")) {
+          continue;
+        }
+
+        if (i == selectedRow) {
+          console.log(i + " etbm " + selectedRow)
+          continue;
+        }
+
+        for (let j = 1; j < (this.rest + this.vari + 2); j++) {
+          // linha pivo * -1 * coluna pra zera + valor da linha
+
+          let sum = (Number.parseFloat(this.table[selectedRow][j]) * (hold)) + Number.parseFloat(this.table[i][j]);
+
+          this.table[i][j] = sum.toString();
+
+        }
+
+      }
+
     }
 
 
-    pivot = Number.parseFloat(this.table[selectedRow][selectedColumn])
-    console.log(pivot);
-
-    /*
-    while (rowToCheck.filter(e => Number.parseInt(e) < 0).length > 0) {
-
-      rowToCheck = this.table[1].slice(1, this.vari + this.rest + 1);
-
-    }
-    */
+    console.log(this.table)
   }
 
 }
