@@ -16,6 +16,8 @@ export class AppComponent {
 
   table: Array<Array<string>> = new Array();
 
+  solved: boolean = false;
+
   setVar(value: string) {
     this.vari = Number.parseInt(value);
   }
@@ -34,6 +36,8 @@ export class AppComponent {
   }
 
   setLabels() {
+    this.table[0][0] = "base";
+    
     for (let i = 2; i < this.rest + 2; i++) {
       this.table[i][0] = "x" + ((i + this.vari - 1));
     }
@@ -44,6 +48,7 @@ export class AppComponent {
   }
 
   setZ() {
+    this.table[1][0] = "z"; 
     for (let i = 0; i < this.vari + this.rest + 1; i++) {
       if (i < this.vari)
         this.table[1][i + 1] = (-1 * Number.parseFloat((<HTMLInputElement>document.getElementById("fo-" + i)).value)).toString();
@@ -124,9 +129,11 @@ export class AppComponent {
         let division = result / Number.parseFloat(this.table[i][selectedColumn]);
         if (division < smallestDivision) {
           smallestDivision = division;
-          selectedRow = i;
+          selectedRow = i;          
         }
       }
+
+      this.table[selectedRow][0] = this.table[0][selectedColumn];
 
       pivot = Number.parseFloat(this.table[selectedRow][selectedColumn])
 
@@ -134,7 +141,7 @@ export class AppComponent {
       // multiplica pelo inverso a linha do pivo
       for (let j = 1; j < this.table[selectedRow].length; j++) {
         this.table[selectedRow][j] =
-          (Number.parseFloat(this.table[selectedRow][j]) * (1 / pivot)).toString();
+          (Number.parseFloat(this.table[selectedRow][j]) * (1 / pivot)).toFixed(3);
       }
 
       for (let i = 1; i < (this.rest + 2); i++) {
@@ -155,7 +162,7 @@ export class AppComponent {
 
           let sum = (Number.parseFloat(this.table[selectedRow][j]) * (hold)) + Number.parseFloat(this.table[i][j]);
 
-          this.table[i][j] = sum.toString();
+          this.table[i][j] = sum.toFixed(3);
 
         }
 
@@ -163,8 +170,8 @@ export class AppComponent {
 
     }
 
-
     console.log(this.table)
+    this.solved = true;
   }
 
 }

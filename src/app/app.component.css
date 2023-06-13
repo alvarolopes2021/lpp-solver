@@ -1,3 +1,6 @@
+.main {
+    margin-bottom: 5%;
+}
 .toolbar {
     background-color: #14FF37;
     margin: 0;
@@ -68,4 +71,20 @@ button{
 button:hover{
     background-color: #03EE26;
     box-shadow: 0px 0px 2px 2px #aaa;
+}
+
+.solution-table{
+    margin: auto;
+    width: 80%;
+}
+
+.solution-table table{
+    margin: auto;
+    text-align: center;
+    width: 100%;
+}
+
+.solution-table td{
+    text-align: center;
+    width: 4%;
 }

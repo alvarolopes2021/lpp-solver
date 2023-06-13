@@ -44,4 +44,14 @@
 
   </div>
 
+  <div class="solution-table" *ngIf="solved">
+    <table border="2">
+      <tr *ngFor="let item of [].constructor(rest+2); let i = index">
+        <td *ngFor="let item of [].constructor(vari+rest+2); let j = index">
+          {{table[i][j]}}
+        </td>
+      </tr>
+    </table>
+  </div>
+
 </div>
