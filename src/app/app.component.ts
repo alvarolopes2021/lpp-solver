@@ -18,6 +18,8 @@ export class AppComponent {
 
   solved: boolean = false;
 
+  map : Array<string> = new Array();
+
   setVar(value: string) {
     this.vari = Number.parseInt(value);
   }
@@ -173,6 +175,8 @@ export class AppComponent {
 
     console.log(this.table)
     this.solved = true;
+
+    this.map = this.table.map((index) => index[0]);
   }
 
 }

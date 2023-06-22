@@ -78,7 +78,7 @@ button:hover{
     width: 80%;
 }
 
-.solution-table table{
+.res-table{
     margin: auto;
     text-align: center;
     width: 100%;
@@ -87,4 +87,10 @@ button:hover{
 .solution-table td{
     text-align: center;
     width: 4%;
+}
+
+.dual-table{
+    
+    text-align: center;
+    width: 40%;
 }
