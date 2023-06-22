@@ -241,7 +241,7 @@ export class AppComponent {
       for (let i = 0; i < slice.length; i++) {
         sum += (Number.parseFloat(slice[i]) * Number.parseFloat(this.deltas[i]));
       }
-      sum += + Number.parseFloat(this.table[1][this.table[1].length - 1]);
+      sum += + Number.parseFloat(this.table[1][this.table[1].length - 1]); 
       this.newRevenue = sum.toString();
     }
 
