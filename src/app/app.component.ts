@@ -18,7 +18,17 @@ export class AppComponent {
 
   solved: boolean = false;
 
-  map : Array<string> = new Array();
+  map: Array<string> = new Array();
+
+  optimal: Array<string> = new Array();
+
+  deltas: string[] = [];
+
+  error: boolean = false;
+
+  foundDelta: boolean = false;
+
+  newRevenue: string = "";
 
   setVar(value: string) {
     this.vari = Number.parseInt(value);
@@ -88,6 +98,13 @@ export class AppComponent {
     for (let i = 0; i < this.rest; i++) {
       this.table[i + 2][this.table[i].length - 1] =
         (<HTMLInputElement>document.getElementById("result-" + i)).value;
+    }
+  }
+
+  getDeltas() {
+    for (let i = 0; i < this.rest; i++) {
+      this.deltas.push((<HTMLInputElement>document.getElementById("d-" + i)).value);
+      console.log((<HTMLInputElement>document.getElementById("d-" + i)).value);
     }
   }
 
@@ -177,6 +194,57 @@ export class AppComponent {
     this.solved = true;
 
     this.map = this.table.map((index) => index[0]);
+
+  }
+
+  new() {
+    let increment = 2;
+    let allCofs: Array<Array<string>> = [];
+
+    this.getDeltas();
+
+    for (let i = 1; i < this.vari + 1; i++) {
+      let array: Array<string> = [];
+      for (let j = 1; j < this.vari + 1; j++) {
+        let deltaCof = this.table[i][this.table[i].length - increment];
+        increment++;
+        array.push(deltaCof);
+      }
+      increment = 2;
+      allCofs.push(array);
+    }
+
+    console.log(allCofs)
+
+
+    let deltaCof = 0;
+    for (let i = 0; i < this.rest + 1; i++) {
+      deltaCof = 0;
+      for (let j = 0; j < allCofs[i].length - 1; j++) {
+        deltaCof += (Number.parseFloat(allCofs[i][j]) * Number.parseFloat(this.deltas[j])) + Number.parseFloat(this.table[i][this.table[i].length - 1]);
+
+        increment++;
+        console.log(allCofs[i][j] + " " + this.deltas[j])
+      }
+      if (deltaCof < 0) {
+        this.error = true;
+        this.foundDelta = true;
+        break;
+      }
+    }
+    this.foundDelta = true;
+
+    if (!this.error) {
+      let slice = this.table[1].slice(this.vari+1, (1 + this.vari + this.rest));
+      let sum = 0;
+      console.log(slice)
+      for (let i = 0; i < slice.length; i++) {
+        sum += (Number.parseFloat(slice[i]) * Number.parseFloat(this.deltas[i]));
+      }
+      sum += + Number.parseFloat(this.table[1][this.table[1].length - 1]);
+      this.newRevenue = sum.toString();
+    }
+
   }
 
 }

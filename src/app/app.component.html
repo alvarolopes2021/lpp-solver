@@ -56,7 +56,7 @@
       </tr>
     </table>
   </div>
-  
+
   <div class="solution-table" *ngIf="solved">
     <h1>Valores ótimos</h1>
     <h2>
@@ -65,19 +65,18 @@
   </div>
 
   <div class="solution-table" *ngIf="solved">
-    
-    <div *ngFor="let item of [].constructor(vari+1); let i = index">
-      <div *ngFor="let item of [].constructor(rest+2); let j = index">        
-        <h2 *ngIf="i != 0 && j != 0 && table[i][0] == table[0][j]">
-          {{table[i][0]}} = {{table[i][table[i].length - 1]}}
+    <div *ngFor="let item of table[0].slice(1, vari+1)">
+      <div *ngIf="map.includes(item)">
+        <h2>
+          {{item}} = {{ table[map.indexOf(item)][table[map.indexOf(item)].length - 1] }}
         </h2>
       </div>
     </div>
   </div>
 
   <div class="solution-table" *ngIf="solved">
-    <div *ngFor="let item of table[0].slice(1, vari+1)">        
-      <div *ngIf="!map.includes(item)">        
+    <div *ngFor="let item of table[0].slice(1, vari+1)">
+      <div *ngIf="!map.includes(item)">
         <h2>
           {{item}} = 0
         </h2>
@@ -88,13 +87,45 @@
   <div class="solution-table" *ngIf="solved">
     <h1>Preço sombra</h1>
     <table border="1" class="dual-table">
-      <tr>        
+      <tr>
         <td *ngFor="let item of table[0].slice(vari+1, (vari + rest + 1))">{{item}}</td>
       </tr>
-      <tr>      
-        <td  *ngFor="let res of table[1].slice(vari+1, (vari + rest + 1))">{{res}}</td>      
-      </tr>      
+      <tr>
+        <td *ngFor="let res of table[1].slice(vari+1, (vari + rest + 1))">{{res}}</td>
+      </tr>
     </table>
+  </div>
+
+  
+
+
+
+  <div class="example-container">
+    
+    <label for="var">Deltas	&#916;</label>
+    <div class="coefs">
+      <div class="hold-coef">
+        <input type="number" *ngFor="let item of [].constructor(rest); let i = index" class="with-space"
+          [id]="'d-'+ i">
+      </div>
+    </div>
+
+    
+    <div class="solution-table" *ngIf="solved">
+      <div *ngIf="solved">
+        <h1 style="color: #14FF37" *ngIf="!error && foundDelta">Viável</h1>
+        <h1 style="color: red" *ngIf="error && foundDelta">Não viável</h1>
+      </div>
+    </div>
+  
+
+    <div class="hold-button">
+      <button (click)="new()">NOVO LUCRO</button>
+    </div>
+
+    <div class="hold-button">
+      <h1>{{newRevenue}}</h1>
+    </div>
   </div>
 
 
