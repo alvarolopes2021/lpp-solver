@@ -16,8 +16,9 @@
 
     <h4>Coeficientes da função objetivo</h4>
     <div class="coefs">
-      <div class="hold-coef" >
-        <input type="number" *ngFor="let item of [].constructor(vari); let i = index" class="with-space" [id]="'fo-'+ i">
+      <div class="hold-coef">
+        <input type="number" *ngFor="let item of [].constructor(vari); let i = index" class="with-space"
+          [id]="'fo-'+ i">
       </div>
     </div>
 
@@ -31,10 +32,11 @@
       <div class="hold-coef" *ngFor="let item of [].constructor(rest); let i = index">
         <div class="hold-coef" *ngFor="let item of [].constructor(vari); let j = index">
           <input type="number" [id]="'rest-'+i+'-'+j">
-  
+
         </div>
-        <span><= </span>
-        <input *ngIf="vari > 0" type="number" [id]="'result-'+i">
+        <span>
+          <= </span>
+            <input *ngIf="vari > 0" type="number" [id]="'result-'+i">
       </div>
     </div>
 
@@ -55,7 +57,26 @@
   </div>
 
   <div class="solution-table" *ngIf="solved">
-    <h2>Z max = {{table[1][table[1].length - 1]}}</h2>
+    <h2>
+      {{table[1][0]}} = {{table[1][table[1].length - 1]}}
+    </h2>
   </div>
+
+  <div class="solution-table" *ngIf="solved">
+    <div *ngFor="let item of [].constructor(vari+1); let i = index">
+      <div *ngFor="let item of [].constructor(rest+1); let j = index">        
+        <h2 *ngIf="i != 0 && j != 0 && table[i][0] == table[0][j]">
+          {{table[i][0]}} = {{table[i][table[i].length - 1]}}
+        </h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="solution-table" *ngIf="solved">
+    <div *ngFor="let item of table[0].slice(1, vari+1)">        
+      
+    </div>
+  </div>
+
 
 </div>

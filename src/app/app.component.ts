@@ -37,7 +37,7 @@ export class AppComponent {
 
   setLabels() {
     this.table[0][0] = "base";
-    
+
     for (let i = 2; i < this.rest + 2; i++) {
       this.table[i][0] = "x" + ((i + this.vari - 1));
     }
@@ -48,7 +48,7 @@ export class AppComponent {
   }
 
   setZ() {
-    this.table[1][0] = "z"; 
+    this.table[1][0] = "z";
     for (let i = 0; i < this.vari + this.rest + 1; i++) {
       if (i < this.vari)
         this.table[1][i + 1] = (-1 * Number.parseFloat((<HTMLInputElement>document.getElementById("fo-" + i)).value)).toString();
@@ -106,9 +106,10 @@ export class AppComponent {
 
     this.setResults();
 
+    let rowToCheck = this.table[1];
 
-    //while (rowToCheck.filter(e => Number.parseInt(e) < 0).length > 0) {
-    for (let kk = 0; kk < 3; kk++) {
+    while (rowToCheck.filter(e => Number.parseInt(e) < 0).length > 0) {
+      //for (let kk = 0; kk < 3; kk++) {
 
       // while objective contains negatives
 
@@ -122,14 +123,14 @@ export class AppComponent {
 
       let smallestDivision = Number.MAX_VALUE;
       for (let i = 2; i < this.rest + 2; i++) {
-        if(Number.parseFloat(this.table[i][selectedColumn]) <= 0){
+        if (Number.parseFloat(this.table[i][selectedColumn]) <= 0) {
           continue;
         }
         let result = Number.parseFloat(this.table[i][this.table[i].length - 1]);
         let division = result / Number.parseFloat(this.table[i][selectedColumn]);
         if (division < smallestDivision) {
           smallestDivision = division;
-          selectedRow = i;          
+          selectedRow = i;
         }
       }
 
